@@ -23,19 +23,26 @@ namespace SportsStore.Services
 
         public GetProductsResponse GetProducts(GetProductsRequest request)
         {
-            var result = _dbContext.Products
-                .Where(p => p.Category.Name == request.CategoryName || request.CategoryName == null)
+            var filteredProducts = _dbContext.Products
+                .Where(p => p.Category.Name == request.CategoryName || request.CategoryName == null);
+
+            var totalCount = filteredProducts.Count();
+
+            var result = filteredProducts
+                .Skip(request.PageSize * (request.Page - 1))
+                .Take(request.PageSize)
                 .Select(p => new GetProductsResponse.Product
                 {
-                     Name = p.Name,
-                     ProductId = p.ProductId,
-                     Price = p.Price,
-                     ThumbnailUrl = p.Images.SingleOrDefault(i => i.IsThumbnail).ImageUrl
+                    Name = p.Name,
+                    ProductId = p.ProductId,
+                    Price = p.Price,
+                    ThumbnailUrl = p.Images.SingleOrDefault(i => i.IsThumbnail).ImageUrl
                 });
-
+            
             return new GetProductsResponse
             {
-                Products = result.ToList()
+                Products = result.ToList(),
+                TotalCount = totalCount
             };
         }
     }

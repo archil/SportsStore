@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SportsStore.Domain.Db;
+using SportsStore.Services;
 
 namespace SportsStore
 {
@@ -24,6 +26,8 @@ namespace SportsStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IBrowsingAppService, BrowsingAppService>();
+            services.AddDbContext<SportsStoreDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
