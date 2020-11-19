@@ -1,4 +1,5 @@
-﻿using SportsStore.Domain.Db;
+﻿using SportsStore.Domain;
+using SportsStore.Domain.Db;
 using SportsStore.Services.Models;
 using System;
 using System.Collections.Generic;

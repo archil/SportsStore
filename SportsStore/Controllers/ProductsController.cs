@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SportsStore.Services;
 
@@ -14,6 +15,7 @@ namespace SportsStore.Controllers
         public ProductsController(IBrowsingAppService browsingAppService)
         {
             _browsingAppService = browsingAppService;
+
         }
 
         public IActionResult Index(string categoryName, int page = 1)
